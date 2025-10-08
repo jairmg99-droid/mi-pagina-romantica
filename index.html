@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -126,6 +125,25 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* ===== MÚSICA DE FONDO ===== */
+    .music-player {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 15px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .music-player audio {
+      width: 200px;
+    }
   </style>
 </head>
 <body>
@@ -141,26 +159,33 @@
     </div>
     <div class="photo">
       <img src="fotos/CITA 2.jpeg" alt="Foto 2">
-      <p>Estabamos nerviosos ✈️</p>
+      <p>Estábamos nerviosos ✈️</p>
     </div>
     <div class="photo">
       <img src="fotos/CITA 3.jpeg" alt="Foto 3">
       <p>Un momento lleno de risas 😄</p>
     </div>
-        <div class="photo">
-      <img src="fotos/CITA 4.jpeg" alt="Foto 3">
-      <p>Nuestra primera cita con las manos juntas 😄</p>
+    <div class="photo">
+      <img src="fotos/CITA 4.jpeg" alt="Foto 4">
+      <p>Nuestra primera cita con las manos juntas 💞</p>
     </div>
     <div class="photo">
-      <img src="fotos/DECLARACION.jpeg" alt="Foto 3">
-      <p>Nos dimos el si uwu</p>
+      <img src="fotos/DECLARACION.jpeg" alt="Foto 5">
+      <p>Nos dimos el sí uwu 💍</p>
     </div>
     <div class="photo">
-      <img src="fotos/CITA 5.jpeg" alt="Foto 3">
-      <p>Nuestro primer picnic😄</p>
+      <img src="fotos/CITA 5.jpeg" alt="Foto 6">
+      <p>Nuestro primer picnic 🌸</p>
     </div>
-    <!-- Agrega más fotos copiando estos bloques -->
   </section>
+
+  <div class="music-player">
+    <span>🎵 Nuestra canción</span>
+    <audio controls autoplay loop>
+      <source src="musica/melodia.mp3" type="audio/mpeg">
+      Tu navegador no soporta el audio.
+    </audio>
+  </div>
 
   <button id="topButton">↑</button>
 
@@ -203,5 +228,4 @@
   </script>
 </body>
 </html>
-```
 
