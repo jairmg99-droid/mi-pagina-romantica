@@ -6,6 +6,7 @@
   <title>💜 Jair & Andrea 💗</title>
   <style>
     /* ===== ESTILOS GENERALES ===== */
+    
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
@@ -132,6 +133,13 @@
     }
   </style>
 </head>
+<script>
+  document.addEventListener('click', () => {
+    const audio = new Audio('music/melodia.mp3');
+    audio.loop = true;
+    audio.play();
+  }, { once: true });
+</script>
 <body>
   <header>
     <h1>💜 Jair & Andrea 💗</h1>
