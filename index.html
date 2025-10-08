@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestro Pequeño Mundo 💜</title>
+  <title>💜 Jair & Andrea 💗</title>
   <style>
     /* ===== ESTILOS GENERALES ===== */
     body {
@@ -126,29 +126,15 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== MÚSICA DE FONDO ===== */
-    .music-player {
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 10px 15px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-    }
-
-    .music-player audio {
-      width: 200px;
+    /* ===== AUDIO INVISIBLE ===== */
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>💜 Nuestro Pequeño Mundo 💗</h1>
+    <h1>💜 Jair & Andrea 💗</h1>
     <p>Juntos en cada recuerdo</p>
   </header>
 
@@ -179,13 +165,11 @@
     </div>
   </section>
 
-  <div class="music-player">
-    <span>🎵 Nuestra canción</span>
-    <audio controls autoplay loop>
-      <source src="musica/melodia.mp3" type="audio/mpeg">
-      Tu navegador no soporta el audio.
-    </audio>
-  </div>
+  <!-- Música de fondo oculta -->
+  <audio autoplay loop>
+    <source src="music/melodia.mp3" type="audio/mpeg">
+    Tu navegador no soporta el audio.
+  </audio>
 
   <button id="topButton">↑</button>
 
@@ -228,4 +212,5 @@
   </script>
 </body>
 </html>
+
 
