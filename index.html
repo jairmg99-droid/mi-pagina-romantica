@@ -1,0 +1,206 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro Pequeño Mundo 💜</title>
+  <style>
+    /* ===== ESTILOS GENERALES ===== */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #f7d1f7, #fce4ec);
+      color: #5e3b76;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(90deg, #c9a0dc, #f48fb1);
+      color: white;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 1.1rem;
+    }
+
+    /* ===== GALERÍA ===== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      animation: fadeIn 2s ease;
+    }
+
+    .photo {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .photo img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+
+    .photo p {
+      padding: 15px;
+      text-align: center;
+      font-size: 1rem;
+      color: #6a3f75;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px white;
+    }
+
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ===== BOTÓN ARRIBA ===== */
+    #topButton {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #c084d2;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 15px 18px;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: none;
+      transition: background 0.3s ease;
+    }
+
+    #topButton:hover {
+      background-color: #b76ccf;
+    }
+
+    /* ===== ANIMACIÓN ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💜 Nuestro Pequeño Mundo 💗</h1>
+    <p>Juntos en cada recuerdo</p>
+  </header>
+
+  <section class="gallery">
+    <div class="photo">
+      <img src="fotos/CITA 1.jpeg" alt="Foto 1">
+      <p>Nuestro primer día juntos 💕</p>
+    </div>
+    <div class="photo">
+      <img src="fotos/CITA 2.jpeg" alt="Foto 2">
+      <p>Estabamos nerviosos ✈️</p>
+    </div>
+    <div class="photo">
+      <img src="fotos/CITA 3.jpeg" alt="Foto 3">
+      <p>Un momento lleno de risas 😄</p>
+    </div>
+        <div class="photo">
+      <img src="fotos/CITA 4.jpeg" alt="Foto 3">
+      <p>Nuestra primera cita con las manos juntas 😄</p>
+    </div>
+    <div class="photo">
+      <img src="fotos/DECLARACION.jpeg" alt="Foto 3">
+      <p>Nos dimos el si uwu</p>
+    </div>
+    <div class="photo">
+      <img src="fotos/CITA 5.jpeg" alt="Foto 3">
+      <p>Nuestro primer picnic😄</p>
+    </div>
+    <!-- Agrega más fotos copiando estos bloques -->
+  </section>
+
+  <button id="topButton">↑</button>
+
+  <div class="lightbox" id="lightbox">
+    <span class="close" id="close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    // Mostrar imagen en lightbox
+    const images = document.querySelectorAll('.photo img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('close');
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+
+    // Botón para subir arriba
+    const topButton = document.getElementById('topButton');
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        topButton.style.display = 'block';
+      } else {
+        topButton.style.display = 'none';
+      }
+    };
+
+    topButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
+```
