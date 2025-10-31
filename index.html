@@ -6,7 +6,6 @@
   <title>💜 Jair & Andrea 💗</title>
   <style>
     /* ===== ESTILOS GENERALES ===== */
-    
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
@@ -121,10 +120,39 @@
       background-color: #b76ccf;
     }
 
-    /* ===== ANIMACIÓN ===== */
+    /* ===== ANIMACIÓN DE APARICIÓN ===== */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== ANIMACIÓN CORAZÓN DE FUEGO ===== */
+    .heart-fire {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at 30% 30%, #ff5f5f, #ff1e1e 60%, transparent 80%);
+      clip-path: path("M61.3 10.6c-7.6-7.1-20-7.1-27.6 0-7.6 7.1-7.6 18.6 0 25.7l27.6 25.7 27.6-25.7c7.6-7.1 7.6-18.6 0-25.7-7.6-7.1-20-7.1-27.6 0z");
+      animation: heartPulse 1.2s ease-in-out forwards, fireGlow 1s infinite alternate, fadeOut 4s forwards 2.5s;
+      z-index: 1000;
+    }
+
+    @keyframes heartPulse {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    @keyframes fireGlow {
+      from { filter: drop-shadow(0 0 10px orange) drop-shadow(0 0 25px red); }
+      to { filter: drop-shadow(0 0 20px yellow) drop-shadow(0 0 40px orangered); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translate(-50%, -50%) scale(0.5); visibility: hidden; }
     }
 
     /* ===== AUDIO INVISIBLE ===== */
@@ -133,68 +161,32 @@
     }
   </style>
 </head>
-<script>
-  document.addEventListener('click', () => {
-    const audio = new Audio('music/melodia.mp3');
-    audio.loop = true;
-    audio.play();
-  }, { once: true });
-</script>
+
 <body>
+  <!-- 🔥 CORAZÓN ANIMADO AL ENTRAR -->
+  <div class="heart-fire"></div>
+
   <header>
     <h1>💜 Jair & Andrea 💗</h1>
     <p>Juntos en cada recuerdo</p>
   </header>
 
   <section class="gallery">
-    <div class="photo">
-      <img src="fotos/CITA 1.jpeg" alt="Foto 1">
-      <p>Nuestro primer día juntos 💕</p>
-    </div>
-    <div class="photo">
-      <img src="fotos/CITA 2.jpeg" alt="Foto 2">
-      <p>Estábamos nerviosos ✈️</p>
-    </div>
-    <div class="photo">
-      <img src="fotos/CITA 3.jpeg" alt="Foto 3">
-      <p>Un momento lleno de risas 😄</p>
-    </div>
-    <div class="photo">
-      <img src="fotos/CITA 4.jpeg" alt="Foto 4">
-      <p>Nuestra primera cita con las manos juntas 💞</p>
-    </div>
-    <div class="photo">
-      <img src="fotos/flores.jpeg" alt="Foto 5">
-      <p>Nos dimos el sí uwu 💍</p>
-    </div>
-    <div class="photo">
-      <img src="fotos/DECLARACION.jpeg" alt="Foto 5">
-      <p>Nos dimos el sí uwu 💍</p>
-    </div>
-    <div class="photo">
-      <img src="fotos/CITA 5.jpeg" alt="Foto 6">
-      <p>Nuestro primer picnic 🌸</p>
-    </div>
-       <div class="photo">
-      <img src="fotos/CITA 7.jpeg" alt="Foto 6">
-      <p>Muah muah 😘</p>
-    </div>
-      </div>
-       <div class="photo">
-      <img src="fotos/chaufita.png" alt="Foto 6">
-      <p>Rico chaufita 🤤</p>
-    </div>
-       <div class="photo">
-      <img src="fotos/tareas.jpeg" alt="Foto 6">
-      <p>Haciendo tareitas 🧑‍💻</p>
-    </div>
-       <div class="photo">
-      <img src="fotos/cita vestido.jpeg" alt="Foto 6">
-      <p>Me encanto :3 👗</p>
-    </div>
+    <div class="photo"><img src="fotos/CITA 1.jpeg" alt="Foto 1"><p>Nuestro primer día juntos 💕</p></div>
+    <div class="photo"><img src="fotos/CITA 2.jpeg" alt="Foto 2"><p>Estábamos nerviosos ✈️</p></div>
+    <div class="photo"><img src="fotos/CITA 3.jpeg" alt="Foto 3"><p>Un momento lleno de risas 😄</p></div>
+    <div class="photo"><img src="fotos/CITA 4.jpeg" alt="Foto 4"><p>Nuestra primera cita con las manos juntas 💞</p></div>
+    <div class="photo"><img src="fotos/flores.jpeg" alt="Foto 5"><p>Flores y cine 🌼</p></div>
+    <div class="photo"><img src="fotos/DECLARACION.jpeg" alt="Foto 5"><p>Nos dimos el sí uwu 💍</p></div>
+    <div class="photo"><img src="fotos/CITA 5.jpeg" alt="Foto 6"><p>Nuestro primer picnic 🌸</p></div>
+    <div class="photo"><img src="fotos/CITA 7.jpeg" alt="Foto 6"><p>Muah muah 😘</p></div>
+    <div class="photo"><img src="fotos/chaufita.png" alt="Foto 6"><p>Rico chaufita 🤤</p></div>
+    <div class="photo"><img src="fotos/tareas.jpeg" alt="Foto 6"><p>Haciendo tareitas 🧑‍💻</p></div>
+    <div class="photo"><img src="fotos/CITA_STICH.jpeg" alt="Foto 6"><p>Regalo para esos días 😊</p></div>
+    <div class="photo"><img src="fotos/CITA_FOTO.jpeg" alt="Foto 6"><p>Compartiendo logros 🏆</p></div>
+    <div class="photo"><img src="fotos/con la chica mas linda.jpeg" alt="Foto 6"><p>Con la chica más linda ❤️</p></div>
   </section>
 
-  <!-- Música de fondo oculta -->
   <audio autoplay loop>
     <source src="music/melodia.mp3" type="audio/mpeg">
     Tu navegador no soporta el audio.
@@ -208,7 +200,14 @@
   </div>
 
   <script>
-    // Mostrar imagen en lightbox
+    // Música al hacer clic
+    document.addEventListener('click', () => {
+      const audio = new Audio('music/melodia.mp3');
+      audio.loop = true;
+      audio.play();
+    }, { once: true });
+
+    // Lightbox
     const images = document.querySelectorAll('.photo img');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -225,25 +224,16 @@
       lightbox.style.display = 'none';
     });
 
-    // Botón para subir arriba
+    // Botón arriba
     const topButton = document.getElementById('topButton');
     window.onscroll = function() {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        topButton.style.display = 'block';
-      } else {
-        topButton.style.display = 'none';
-      }
+      topButton.style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
     };
- 
+
     topButton.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>
 </html>
-```
-
-
-
-
 
