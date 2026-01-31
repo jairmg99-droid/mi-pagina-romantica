@@ -1,255 +1,332 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💜 Jair & Andrea 💗</title>
-  <style>
-    /* ===== ESTILOS GENERALES ===== */
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to bottom right, #f7d1f7, #fce4ec);
-      color: #5e3b76;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💜 Jair & Andrea 💗</title>
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(90deg, #c9a0dc, #f48fb1);
-      color: white;
-      font-size: 2rem;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom right, #f7d1f7, #fce4ec);
+  color: #5e3b76;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+header {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(90deg, #c9a0dc, #f48fb1);
+  color: white;
+}
 
-    header p {
-      margin: 5px 0 0;
-      font-size: 1.1rem;
-    }
+.selector-anio {
+  text-align: center;
+  margin: 25px 0 10px;
+  font-size: 1rem;
+}
 
-    /* ===== GALERÍA ===== */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      animation: fadeIn 2s ease;
-    }
+.selector-anio select {
+  padding: 10px 22px;
+  border-radius: 25px;
+  border: none;
+  background: #c084d2;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
-    .photo {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.menu {
+  text-align: center;
+  margin: 15px 0 30px;
+}
 
-    .photo:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    }
+.menu button {
+  background: #c084d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: .3s;
+}
 
-    .photo img {
-      width: 100%;
-      display: block;
-      cursor: pointer;
-    }
+.menu button:hover {
+  background: #b76ccf;
+  transform: scale(1.05);
+}
 
-    .photo p {
-      padding: 15px;
-      text-align: center;
-      font-size: 1rem;
-      color: #6a3f75;
-    }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 40px;
+}
 
-    /* ===== LIGHTBOX ===== */
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
+.photo {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
 
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px white;
-    }
+  display: flex;
+  flex-direction: column;   /* imagen arriba, texto abajo */
+}
 
-    .close {
-      position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-    }
 
-    /* ===== BOTÓN ARRIBA ===== */
-    #topButton {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #c084d2;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      padding: 15px 18px;
-      cursor: pointer;
-      font-size: 18px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: none;
-      transition: background 0.3s ease;
-    }
+.photo img {
+  width: 100%;
+  height: 260px;
+  object-fit: contain;        /* 👈 NO corta */
+  background: #fde7f3;        /* fondo rosadito */
+  padding: 10px;              /* aire alrededor */
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+}
 
-    #topButton:hover {
-      background-color: #b76ccf;
-    }
 
-    /* ===== ANIMACIÓN DE APARICIÓN ===== */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
-    /* ===== ANIMACIÓN CORAZÓN DE FUEGO ===== */
-    .heart-fire {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      width: 120px;
-      height: 120px;
-      background: radial-gradient(circle at 30% 30%, #ff5f5f, #ff1e1e 60%, transparent 80%);
-      clip-path: path("M61.3 10.6c-7.6-7.1-20-7.1-27.6 0-7.6 7.1-7.6 18.6 0 25.7l27.6 25.7 27.6-25.7c7.6-7.1 7.6-18.6 0-25.7-7.6-7.1-20-7.1-27.6 0z");
-      animation: heartPulse 1.2s ease-in-out forwards, fireGlow 1s infinite alternate, fadeOut 4s forwards 2.5s;
-      z-index: 1000;
-    }
+.photo p {
+  text-align: center;
+  font-size: 1.05rem;
+  padding: 12px;
+  color: #7b3f8c;
+  font-weight: 600;
 
-    @keyframes heartPulse {
-      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    }
+  
+}
 
-    @keyframes fireGlow {
-      from { filter: drop-shadow(0 0 10px orange) drop-shadow(0 0 25px red); }
-      to { filter: drop-shadow(0 0 20px yellow) drop-shadow(0 0 40px orangered); }
-    }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
 
-    @keyframes fadeOut {
-      to { opacity: 0; transform: translate(-50%, -50%) scale(0.5); visibility: hidden; }
-    }
+.lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+}
 
-    /* ===== AUDIO INVISIBLE ===== */
-    audio {
-      display: none;
-    }
-  </style>
+.close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+audio { display:none; }
+</style>
 </head>
 
 <body>
-  <!-- 🔥 CORAZÓN ANIMADO AL ENTRAR -->
-  <div class="heart-fire"></div>
 
-  <header>
-    <h1>💜 Jair & Andrea 💗</h1>
-    <p>Juntos en cada recuerdo</p>
-    <div style="text-align:center; margin: 40px 0;">
-  <a href="cita.html" 
-     style="background:#c084d2; color:white; padding:12px 25px; 
-            border-radius:25px; text-decoration:none; 
-            box-shadow:0 4px 10px rgba(0,0,0,0.2); 
-            transition: background 0.3s;">
-     💞 Ver nuestra cita especial 💞
-  </a>
+<header>
+  <h1>💜 Jair & Andrea 💗</h1>
+  <p>Juntos en cada recuerdo</p>
+</header>
+
+<!-- ===== AÑO DESPLEGABLE ===== -->
+<div class="selector-anio">
+  📅 Año:
+  <select onchange="cambiarAnio(this.value)">
+    <option value="2025">2025</option>
+    <option value="2026">2026</option>
+    <option value="2027">2027</option>
+  </select>
 </div>
 
-  </header>
+<!-- ===== MESES ===== -->
+<nav class="menu">
+  <button onclick="cambiarMes('todos')">💖 Todos</button>
+  <button onclick="cambiarMes('enero')">Enero</button>
+  <button onclick="cambiarMes('febrero')">Febrero</button>
+  <button onclick="cambiarMes('marzo')">Marzo</button>
+  <button onclick="cambiarMes('abril')">Abril</button>
+  <button onclick="cambiarMes('mayo')">Mayo</button>
+  <button onclick="cambiarMes('junio')">Junio</button>
+  <button onclick="cambiarMes('julio')">Julio</button>
+  <button onclick="cambiarMes('agosto')">Agosto</button>
+  <button onclick="cambiarMes('septiembre')">Septiembre</button>
+  <button onclick="cambiarMes('octubre')">Octubre</button>
+  <button onclick="cambiarMes('noviembre')">Noviembre</button>
+  <button onclick="cambiarMes('diciembre')">Diciembre</button>
+  <button onclick="window.location.href='cita.html'">⭐ Especial</button>
+</nav>
 
-  <section class="gallery">
-    <div class="photo"><img src="fotos/CITA 1.jpeg" alt="Foto 1"><p>Nuestro primer día juntos 💕</p></div>
-    <div class="photo"><img src="fotos/CITA 2.jpeg" alt="Foto 2"><p>Estábamos nerviosos ✈️</p></div>
-    <div class="photo"><img src="fotos/CITA 3.jpeg" alt="Foto 3"><p>Un momento lleno de risas 😄</p></div>
-    <div class="photo"><img src="fotos/CITA 4.jpeg" alt="Foto 4"><p>Nuestra primera cita con las manos juntas 💞</p></div>
-    <div class="photo"><img src="fotos/flores.jpeg" alt="Foto 5"><p>Flores y cine 🌼</p></div>
-    <div class="photo"><img src="fotos/DECLARACION.jpeg" alt="Foto 5"><p>Nos dimos el sí uwu 💍</p></div>
-    <div class="photo"><img src="fotos/CITA 5.jpeg" alt="Foto 6"><p>Nuestro primer picnic 🌸</p></div>
-    <div class="photo"><img src="fotos/CITA 7.jpeg" alt="Foto 6"><p>Muah muah 😘</p></div>
-    <div class="photo"><img src="fotos/chaufita.png" alt="Foto 6"><p>Rico chaufita 🤤</p></div>
-    <div class="photo"><img src="fotos/tareas.jpeg" alt="Foto 6"><p>Haciendo tareitas 🧑‍💻</p></div>
-    <div class="photo"><img src="fotos/CITA_STICH.jpeg" alt="Foto 6"><p>Regalo para esos días 😊</p></div>
-    <div class="photo"><img src="fotos/CITA_FOTO.jpeg" alt="Foto 6"><p>Compartiendo logros 🏆</p></div>
-    <div class="photo"><img src="fotos/con la chica mas linda.jpeg" alt="Foto 6"><p>Con la chica más linda ❤️</p></div>
-    <div class="photo"><img src="fotos/citapl.jpeg" alt="Foto 6"><p>Peli juntos uwu</p></div>
-    <div class="photo"><img src="fotos/cita_metro.jpeg" alt="Foto 6"><p>Verguencita 🫣🥹</p></div>
-    <div class="photo"><img src="fotos/lima.jpeg" alt="Foto 6"><p>Navidad en lima🎄</p></div>
-    <div class="photo"><img src="fotos/costillitas.jpeg" alt="Foto 6"><p>comimos 🐽</p></div>
-  </section>
+<section class="gallery">
 
-  <audio autoplay loop>
-    <source src="music/melodia.mp3" type="audio/mpeg">
-    Tu navegador no soporta el audio.
-  </audio>
+<!-- EJEMPLOS -->
+<div class="photo" data-mes="agosto" data-anio="2025">
+  <img src="fotos/CITA 1.jpeg" alt="Foto 1">
+  <p>Nuestro primer día juntos 💕</p>
+</div>
 
-  <button id="topButton">↑</button>
+<div class="photo" data-mes="agosto" data-anio="2025">
+  <img src="fotos/CITA 2.jpeg" alt="Foto 2">
+  <p>Estábamos nerviosos ✈️</p>
+</div>
 
-  <div class="lightbox" id="lightbox">
-    <span class="close" id="close">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-  </div>
+<div class="photo" data-mes="agosto" data-anio="2025">
+  <img src="fotos/CITA 3.jpeg" alt="Foto 3">
+  <p>Un momento lleno de risas 😄</p>
+</div>
 
-  <script>
-    // Música al hacer clic
-    document.addEventListener('click', () => {
-      const audio = new Audio('music/melodia.mp3');
-      audio.loop = true;
-      audio.play();
-    }, { once: true });
+<div class="photo" data-mes="septiembre" data-anio="2025">
+  <img src="fotos/CITA 4.jpeg" alt="Foto 4">
+  <p>Nuestra primera cita con las manos juntas 💞</p>
+</div>
 
-    // Lightbox
-    const images = document.querySelectorAll('.photo img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeBtn = document.getElementById('close');
+<div class="photo" data-mes="septiembre" data-anio="2025">
+  <img src="fotos/flores.jpeg" alt="Foto 5">
+  <p>Flores y cine 🌼</p>
+</div>
 
-    images.forEach(img => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-      });
-    });
+<div class="photo" data-mes="octubre" data-anio="2025">
+  <img src="fotos/DECLARACION.jpeg" alt="Foto 6">
+  <p>Nos dimos el sí uwu </p>
+</div>
 
-    closeBtn.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
+<div class="photo" data-mes="octubre" data-anio="2025">
+  <img src="fotos/CITA 5.jpeg" alt="Foto 7">
+  <p>Nuestro primer picnic 🌸</p>
+</div>
 
-    // Botón arriba
-    const topButton = document.getElementById('topButton');
-    window.onscroll = function() {
-      topButton.style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
-    };
+<div class="photo" data-mes="octubre" data-anio="2025">
+  <img src="fotos/CITA 7.jpeg" alt="Foto 8">
+  <p>Muah muah 😘</p>
+</div>
 
-    topButton.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
+<div class="photo" data-mes="octubre" data-anio="2025">
+  <img src="fotos/chaufita.png" alt="Foto 9">
+  <p>Rico chaufita 🤤</p>
+</div>
+
+<div class="photo" data-mes="noviembre" data-anio="2025">
+  <img src="fotos/tareas.jpeg" alt="Foto 10">
+  <p>Haciendo tareitas 🧑‍💻</p>
+</div>
+
+<div class="photo" data-mes="noviembre" data-anio="2025">
+  <img src="fotos/CITA_STICH.jpeg" alt="Foto 11">
+  <p>Regalo para esos días 😊</p>
+</div>
+
+<div class="photo" data-mes="noviembre" data-anio="2025">
+  <img src="fotos/CITA_FOTO.jpeg" alt="Foto 12">
+  <p>Compartiendo logros 🏆</p>
+</div>
+
+<div class="photo" data-mes="noviembre" data-anio="2025">
+  <img src="fotos/con la chica mas linda.jpeg" alt="Foto 13">
+  <p>Con la chica más linda ❤️</p>
+</div>
+
+<div class="photo" data-mes="diciembre" data-anio="2025">
+  <img src="fotos/citapl.jpeg" alt="Foto 14">
+  <p>Peli juntos uwu 🎬</p>
+</div>
+
+<div class="photo" data-mes="diciembre" data-anio="2025">
+  <img src="fotos/cita_metro.jpeg" alt="Foto 15">
+  <p>Verguencita 🫣🥹</p>
+</div>
+
+<div class="photo" data-mes="diciembre" data-anio="2025">
+  <img src="fotos/lima.jpeg" alt="Foto 16">
+  <p>Navidad en Lima 🎄</p>
+</div>
+
+<div class="photo" data-mes="diciembre" data-anio="2025">
+  <img src="fotos/costillitas.jpeg" alt="Foto 18">
+  <p>Comimos 🐽</p>
+</div>
+
+<div class="photo" data-mes="enero" data-anio="2026">
+  <img src="fotos/ENERO 1.jpeg" alt="Foto 19">
+  <p>Cine 🍿</p>
+</div>
+
+<div class="photo" data-mes="enero" data-anio="2026">
+  <img src="fotos/ENERO 2.jpeg" alt="Foto 20">
+  <p>Granja villa 🎢</p>
+</div>
+<div class="photo" data-mes="enero" data-anio="2026">
+  <img src="fotos/ENERO 3.jpeg" alt="Foto 21">
+  <p>Arte 🖌️🎨 </p>
+</div>
+
+
+
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="close" onclick="cerrar()">×</span>
+  <img id="imgGrande">
+</div>
+
+<audio autoplay loop>
+  <source src="music/melodia.mp3">
+</audio>
+
+<script>
+let anioActual = "2025";
+let mesActual = "todos";
+
+const fotos = document.querySelectorAll(".photo");
+const lightbox = document.getElementById("lightbox");
+const imgGrande = document.getElementById("imgGrande");
+
+fotos.forEach(f=>{
+  f.querySelector("img").onclick=()=>{
+    lightbox.style.display="flex";
+    imgGrande.src=f.querySelector("img").src;
+  }
+});
+
+function cerrar(){
+  lightbox.style.display="none";
+}
+
+function cambiarAnio(anio){
+  anioActual = anio;
+  aplicarFiltro();
+}
+
+function cambiarMes(mes){
+  mesActual = mes;
+  aplicarFiltro();
+}
+
+function aplicarFiltro(){
+  fotos.forEach(foto=>{
+    const mes = foto.dataset.mes;
+    const anio = foto.dataset.anio;
+
+    const okMes =
+      mesActual==="todos" || mes===mesActual;
+
+    const okAnio =
+      anio===anioActual;
+
+    foto.style.display =
+      (okMes && okAnio) ? "block" : "none";
+  });
+}
+
+aplicarFiltro();
+</script>
+
 </body>
 </html>
-
-
 
