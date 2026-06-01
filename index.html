@@ -34,6 +34,7 @@ header {
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  outline: none;
 }
 
 .menu {
@@ -53,7 +54,7 @@ header {
   transition: .3s;
 }
 
-.menu button:hover {
+.menu button:hover, .menu button.activo {
   background: #b76ccf;
   transform: scale(1.05);
 }
@@ -71,24 +72,20 @@ header {
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s;
-
   display: flex;
-  flex-direction: column;   /* imagen arriba, texto abajo */
+  flex-direction: column;
 }
-
 
 .photo img {
   width: 100%;
   height: 260px;
-  object-fit: contain;        /* 👈 NO corta */
-  background: #fde7f3;        /* fondo rosadito */
-  padding: 10px;              /* aire alrededor */
+  object-fit: contain;
+  background: #fde7f3;
+  padding: 10px;
   box-sizing: border-box;
   cursor: pointer;
   display: block;
 }
-
-
 
 .photo p {
   text-align: center;
@@ -96,17 +93,17 @@ header {
   padding: 12px;
   color: #7b3f8c;
   font-weight: 600;
-
-  
+  margin: 0;
 }
 
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.7);
+  background: rgba(0,0,0,.8);
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .lightbox img {
@@ -119,7 +116,7 @@ header {
   position: absolute;
   top: 30px;
   right: 40px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: white;
   cursor: pointer;
 }
@@ -135,17 +132,15 @@ audio { display:none; }
   <p>Juntos en cada recuerdo</p>
 </header>
 
-<!-- ===== AÑO DESPLEGABLE ===== -->
 <div class="selector-anio">
   📅 Año:
-  <select onchange="cambiarAnio(this.value)">
+  <select onchange="cambiarAnio(this.value)" id="selectAnio">
     <option value="2025">2025</option>
     <option value="2026">2026</option>
     <option value="2027">2027</option>
   </select>
 </div>
 
-<!-- ===== MESES ===== -->
 <nav class="menu">
   <button onclick="cambiarMes('todos')">💖 Todos</button>
   <button onclick="cambiarMes('enero')">Enero</button>
@@ -163,113 +158,9 @@ audio { display:none; }
   <button onclick="window.location.href='cita.html'">⭐ Especial</button>
 </nav>
 
-<section class="gallery">
+<!-- La galería empieza vacía, JavaScript la llenará -->
+<section class="gallery" id="galeria-contenedor"></section>
 
-<!-- EJEMPLOS -->
-<div class="photo" data-mes="agosto" data-anio="2025">
-  <img src="fotos/CITA 1.jpeg" alt="Foto 1">
-  <p>Nuestro primer día juntos 💕</p>
-</div>
-
-<div class="photo" data-mes="agosto" data-anio="2025">
-  <img src="fotos/CITA 2.jpeg" alt="Foto 2">
-  <p>Estábamos nerviosos ✈️</p>
-</div>
-
-<div class="photo" data-mes="agosto" data-anio="2025">
-  <img src="fotos/CITA 3.jpeg" alt="Foto 3">
-  <p>Un momento lleno de risas 😄</p>
-</div>
-
-<div class="photo" data-mes="septiembre" data-anio="2025">
-  <img src="fotos/CITA 4.jpeg" alt="Foto 4">
-  <p>Nuestra primera cita con las manos juntas 💞</p>
-</div>
-
-<div class="photo" data-mes="septiembre" data-anio="2025">
-  <img src="fotos/flores.jpeg" alt="Foto 5">
-  <p>Flores y cine 🌼</p>
-</div>
-
-<div class="photo" data-mes="octubre" data-anio="2025">
-  <img src="fotos/DECLARACION.jpeg" alt="Foto 6">
-  <p>Nos dimos el sí uwu </p>
-</div>
-
-<div class="photo" data-mes="octubre" data-anio="2025">
-  <img src="fotos/CITA 5.jpeg" alt="Foto 7">
-  <p>Nuestro primer picnic 🌸</p>
-</div>
-
-<div class="photo" data-mes="octubre" data-anio="2025">
-  <img src="fotos/CITA 7.jpeg" alt="Foto 8">
-  <p>Muah muah 😘</p>
-</div>
-
-<div class="photo" data-mes="octubre" data-anio="2025">
-  <img src="fotos/chaufita.png" alt="Foto 9">
-  <p>Rico chaufita 🤤</p>
-</div>
-
-<div class="photo" data-mes="noviembre" data-anio="2025">
-  <img src="fotos/tareas.jpeg" alt="Foto 10">
-  <p>Haciendo tareitas 🧑‍💻</p>
-</div>
-
-<div class="photo" data-mes="noviembre" data-anio="2025">
-  <img src="fotos/CITA_STICH.jpeg" alt="Foto 11">
-  <p>Regalo para esos días 😊</p>
-</div>
-
-<div class="photo" data-mes="noviembre" data-anio="2025">
-  <img src="fotos/CITA_FOTO.jpeg" alt="Foto 12">
-  <p>Compartiendo logros 🏆</p>
-</div>
-
-<div class="photo" data-mes="noviembre" data-anio="2025">
-  <img src="fotos/con la chica mas linda.jpeg" alt="Foto 13">
-  <p>Con la chica más linda ❤️</p>
-</div>
-
-<div class="photo" data-mes="diciembre" data-anio="2025">
-  <img src="fotos/citapl.jpeg" alt="Foto 14">
-  <p>Peli juntos uwu 🎬</p>
-</div>
-
-<div class="photo" data-mes="diciembre" data-anio="2025">
-  <img src="fotos/cita_metro.jpeg" alt="Foto 15">
-  <p>Verguencita 🫣🥹</p>
-</div>
-
-<div class="photo" data-mes="diciembre" data-anio="2025">
-  <img src="fotos/lima.jpeg" alt="Foto 16">
-  <p>Navidad en Lima 🎄</p>
-</div>
-
-<div class="photo" data-mes="diciembre" data-anio="2025">
-  <img src="fotos/costillitas.jpeg" alt="Foto 18">
-  <p>Comimos 🐽</p>
-</div>
-
-<div class="photo" data-mes="enero" data-anio="2026">
-  <img src="fotos/ENERO 1.jpeg" alt="Foto 19">
-  <p>Cine 🍿</p>
-</div>
-
-<div class="photo" data-mes="enero" data-anio="2026">
-  <img src="fotos/ENERO 2.jpeg" alt="Foto 20">
-  <p>Granja villa 🎢</p>
-</div>
-<div class="photo" data-mes="enero" data-anio="2026">
-  <img src="fotos/ENERO 3.jpeg" alt="Foto 21">
-  <p>Arte 🖌️🎨 </p>
-</div>
-
-
-
-</section>
-
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <span class="close" onclick="cerrar()">×</span>
   <img id="imgGrande">
@@ -279,52 +170,77 @@ audio { display:none; }
   <source src="music/melodia.mp3">
 </audio>
 
+<!-- AQUÍ CONECTAMOS TUS DATOS -->
+<script src="datos.js"></script>
+
 <script>
 let anioActual = "2025";
 let mesActual = "todos";
 
-const fotos = document.querySelectorAll(".photo");
+const galeriaContenedor = document.getElementById("galeria-contenedor");
 const lightbox = document.getElementById("lightbox");
 const imgGrande = document.getElementById("imgGrande");
 
-fotos.forEach(f=>{
-  f.querySelector("img").onclick=()=>{
-    lightbox.style.display="flex";
-    imgGrande.src=f.querySelector("img").src;
-  }
-});
+// Cargar las fotos al inicio
+generarGaleria();
 
-function cerrar(){
-  lightbox.style.display="none";
+function generarGaleria() {
+  galeriaContenedor.innerHTML = ""; // Limpiar galería
+  
+  misFotos.forEach(foto => {
+    // Crear contenedor
+    const div = document.createElement("div");
+    div.className = "photo";
+    div.dataset.mes = foto.mes;
+    div.dataset.anio = foto.anio;
+    
+    // Crear imagen
+    const img = document.createElement("img");
+    img.src = "fotos/" + foto.archivo;
+    img.alt = foto.descripcion;
+    img.onclick = () => abrirLightbox(img.src);
+    
+    // Crear texto
+    const p = document.createElement("p");
+    p.textContent = foto.descripcion;
+    
+    div.appendChild(img);
+    div.appendChild(p);
+    galeriaContenedor.appendChild(div);
+  });
+  
+  aplicarFiltro();
 }
 
-function cambiarAnio(anio){
+function abrirLightbox(src) {
+  lightbox.style.display = "flex";
+  imgGrande.src = src;
+}
+
+function cerrar() {
+  lightbox.style.display = "none";
+}
+
+function cambiarAnio(anio) {
   anioActual = anio;
   aplicarFiltro();
 }
 
-function cambiarMes(mes){
+function cambiarMes(mes) {
   mesActual = mes;
   aplicarFiltro();
 }
 
-function aplicarFiltro(){
-  fotos.forEach(foto=>{
+function aplicarFiltro() {
+  const todasLasFotos = document.querySelectorAll(".photo");
+  todasLasFotos.forEach(foto => {
     const mes = foto.dataset.mes;
     const anio = foto.dataset.anio;
-
-    const okMes =
-      mesActual==="todos" || mes===mesActual;
-
-    const okAnio =
-      anio===anioActual;
-
-    foto.style.display =
-      (okMes && okAnio) ? "block" : "none";
+    const okMes = mesActual === "todos" || mes === mesActual;
+    const okAnio = anio === anioActual;
+    foto.style.display = (okMes && okAnio) ? "flex" : "none";
   });
 }
-
-aplicarFiltro();
 </script>
 
 </body>
