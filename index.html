@@ -18,6 +18,11 @@ header {
   padding: 60px 20px;
   background: linear-gradient(90deg, #c9a0dc, #f48fb1);
   color: white;
+  user-select: none; 
+}
+
+header h1 {
+  cursor: default; 
 }
 
 .selector-anio {
@@ -54,7 +59,7 @@ header {
   transition: .3s;
 }
 
-.menu button:hover, .menu button.activo {
+.menu button:hover {
   background: #b76ccf;
   transform: scale(1.05);
 }
@@ -122,13 +127,43 @@ header {
 }
 
 audio { display:none; }
+
+/* RECUADRO DE ARRASTRE - invisible por defecto */
+.drop-zone {
+  border: 2px dashed #c084d2;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  color: #7b3f8c;
+  font-weight: 600;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.6);
+  display: none; 
+}
+
+.drop-zone:hover, .drop-zone.dragover {
+  background: #fce4ec;
+  border-color: #f48fb1;
+  transform: scale(1.02);
+}
+
+.drop-zone span {
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #a86ebf;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>💜 Jair & Andrea 💗</h1>
+  <!-- Haz DOBLE CLIC rápido aquí para mostrar/ocultar el recuadro -->
+  <h1 id="tituloSecreto">💜 Jair & Andrea 💗</h1>
   <p>Juntos en cada recuerdo</p>
 </header>
 
@@ -158,7 +193,12 @@ audio { display:none; }
   <button onclick="window.location.href='cita.html'">⭐ Especial</button>
 </nav>
 
-<!-- La galería empieza vacía, JavaScript la llenará -->
+<!-- RECUADRO DE ARRASTRE -->
+<div id="drop-zone" class="drop-zone">
+  📸 Arrastra la nueva foto aquí para generar el código automáticamente<br>
+  <span>(Luego copias la línea y la pegas en tu datos.js de GitHub)</span>
+</div>
+
 <section class="gallery" id="galeria-contenedor"></section>
 
 <div class="lightbox" id="lightbox">
@@ -170,7 +210,7 @@ audio { display:none; }
   <source src="music/melodia.mp3">
 </audio>
 
-<!-- AQUÍ CONECTAMOS TUS DATOS -->
+<!-- CONEXIÓN A TU LISTA DE FOTOS -->
 <script src="datos.js"></script>
 
 <script>
@@ -180,27 +220,34 @@ let mesActual = "todos";
 const galeriaContenedor = document.getElementById("galeria-contenedor");
 const lightbox = document.getElementById("lightbox");
 const imgGrande = document.getElementById("imgGrande");
+const dropZone = document.getElementById("drop-zone");
+const tituloSecreto = document.getElementById("tituloSecreto");
 
-// Cargar las fotos al inicio
+// --- REVELAR RECUADRO SECRETO ---
+tituloSecreto.addEventListener("dblclick", () => {
+  if (dropZone.style.display === "none" || dropZone.style.display === "") {
+    dropZone.style.display = "block";
+  } else {
+    dropZone.style.display = "none";
+  }
+});
+
 generarGaleria();
 
 function generarGaleria() {
-  galeriaContenedor.innerHTML = ""; // Limpiar galería
+  galeriaContenedor.innerHTML = "";
   
   misFotos.forEach(foto => {
-    // Crear contenedor
     const div = document.createElement("div");
     div.className = "photo";
     div.dataset.mes = foto.mes;
     div.dataset.anio = foto.anio;
     
-    // Crear imagen
     const img = document.createElement("img");
     img.src = "fotos/" + foto.archivo;
     img.alt = foto.descripcion;
     img.onclick = () => abrirLightbox(img.src);
     
-    // Crear texto
     const p = document.createElement("p");
     p.textContent = foto.descripcion;
     
@@ -241,8 +288,41 @@ function aplicarFiltro() {
     foto.style.display = (okMes && okAnio) ? "flex" : "none";
   });
 }
+
+// --- GENERADOR DE CÓDIGO AL ARRASTRAR ---
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('dragover'); });
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  if(e.dataTransfer.files.length > 0) pedirDatosYGenerarCodigo(e.dataTransfer.files[0].name);
+});
+dropZone.addEventListener('click', () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = (e) => {
+    if(e.target.files.length > 0) pedirDatosYGenerarCodigo(e.target.files[0].name);
+  };
+  input.click();
+});
+
+function pedirDatosYGenerarCodigo(nombreArchivo) {
+  const descripcion = prompt("💕 Ingresa la descripción para esta foto:");
+  if (descripcion === null) return;
+  
+  const mes = prompt("📅 Ingresa el mes (ej. enero, febrero...):", "enero").toLowerCase();
+  const anio = prompt("📆 Ingresa el año (ej. 2025, 2026):", "2026");
+
+  // Crear la línea de texto exacta para datos.js
+  const lineaCodigo = `{ archivo: "${nombreArchivo}", mes: "${mes}", anio: "${anio}", descripcion: "${descripcion}" },`;
+  
+  // Mostrarlo en un prompt para que el usuario lo copie fácilmente
+  prompt("📋 ¡Código generado! Copia este texto (Ctrl+C) y pégalo en tu datos.js en GitHub:", lineaCodigo);
+  
+  dropZone.style.display = "none"; // Volver a ocultar
+}
 </script>
 
 </body>
 </html>
-
