@@ -19,5 +19,6 @@ const misFotos = [
   { archivo: "ENERO 1.jpeg", mes: "enero", anio: "2026", descripcion: "Cine 🍿" },
   { archivo: "ENERO 2.jpeg", mes: "enero", anio: "2026", descripcion: "Granja villa 🎢" },
   { archivo: "ENERO 3.jpeg", mes: "enero", anio: "2026", descripcion: "Arte 🖌️🎨" }
+  { archivo: "VALENTIN.jpeg", mes: "febrero", anio: "2026", descripcion: "San Valentin" },
   // 👈 Cuando subas una foto nueva a GitHub, agrégala aquí abajo siguiendo el mismo formato
 ];
